@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p v-if="loading">Loading...</p>
+    <notify title="Please wait" message="Request being sent" v-if="loading" />
     <products :products="products" v-if="!loading && products" />
   </div>
 </template>
@@ -11,10 +11,11 @@ import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import { NetworkErrorDto } from "@/types";
 import Products from "@/components/Products.vue";
+import Notify from "@/components/Notify.vue";
 
 export default Vue.extend({
   name: "Home",
-  components: { Products },
+  components: { Products, Notify },
   data: () => ({
     loading: false,
   }),

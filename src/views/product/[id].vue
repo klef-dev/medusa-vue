@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white">
+    <notify title="Please wait" message="Request being sent" v-if="loading" />
     <div class="pt-6 pb-16 sm:pb-24">
       <nav
         aria-label="Breadcrumb"
@@ -244,8 +245,10 @@
 import Vue from "vue";
 import { mapActions, mapMutations, mapState } from "vuex";
 import { NetworkErrorDto } from "@/types";
+import Notify from "@/components/Notify.vue";
 export default Vue.extend({
   name: "SingleProduct",
+  components: { Notify },
   data: () => ({
     selectedSize: null,
     variant_id: "",
@@ -286,12 +289,14 @@ export default Vue.extend({
       }
     },
     async handleAddToCart() {
+      this.loading = true;
       await this.addToCart({
         variant_id: this.variant_id,
         quantity: this.quantity,
       }).catch((err: NetworkErrorDto) => {
         console.log(err);
       });
+      this.loading = false;
     },
   },
   async created() {

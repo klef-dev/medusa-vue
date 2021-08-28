@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white">
+    <notify title="Please wait" message="Request being sent" v-if="loading" />
     <div
       class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
     >
@@ -262,8 +263,13 @@
 import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import { NetworkErrorDto } from "@/types";
+import Notify from "@/components/Notify.vue";
 export default Vue.extend({
   name: "Cart",
+  components: { Notify },
+  data: () => ({
+    loading: false,
+  }),
   computed: {
     ...mapState({ cart: (state: any) => state.cart }),
   },
@@ -276,17 +282,21 @@ export default Vue.extend({
       type: string,
       { item_id, quantity }: { item_id: string; quantity: number }
     ) {
+      this.loading = false;
       await this.updateQuantity({
         item_id,
         quantity: type == "inc" ? quantity + 1 : quantity - 1,
       }).catch((err: NetworkErrorDto) => {
         console.log(err);
       });
+      this.loading = false;
     },
     async handleRemove(item_id: string) {
+      this.loading = false;
       await this.removeFromCart(item_id).catch((err: NetworkErrorDto) => {
         console.log(err);
       });
+      this.loading = false;
     },
   },
 });
