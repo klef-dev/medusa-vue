@@ -1,4 +1,5 @@
 import createClient from "@/storeClient";
+import { LineItemsDto } from "@/types";
 
 const client = createClient();
 
@@ -8,6 +9,9 @@ class CartDataService {
   }
   get(id: string): Promise<never> {
     return client.carts.retrieve(id);
+  }
+  add(id: string, payload: LineItemsDto): Promise<never> {
+    return client.carts.lineItems.create(id, payload);
   }
 }
 

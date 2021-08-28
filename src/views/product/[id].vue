@@ -198,6 +198,7 @@
 
               <button
                 type="submit"
+                @click.prevent="handleAddToCart"
                 class="
                   mt-8
                   w-full
@@ -255,7 +256,7 @@ export default Vue.extend({
     ...mapState({ product: (state: any) => state.product }),
   },
   methods: {
-    ...mapActions({ getProduct: "getProduct" }),
+    ...mapActions({ getProduct: "getProduct", addToCart: "addToCart" }),
     ...mapMutations({ setValue: "setValue" }),
     handleVariant(id: string) {
       this.product.variants = this.product.variants.map((variant: any) => {
@@ -284,12 +285,20 @@ export default Vue.extend({
         }
       }
     },
+    async handleAddToCart() {
+      await this.addToCart({
+        variant_id: this.variant_id,
+        quantity: this.quantity,
+      }).catch((err: NetworkErrorDto) => {
+        console.log(err);
+      });
+    },
   },
   async created() {
     this.loading = true;
     const data = await this.getProduct(this.$route.params.id).catch(
       (err: NetworkErrorDto) => {
-        console.log(err.response);
+        console.log(err);
       }
     );
     if (data) {

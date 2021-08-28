@@ -5,7 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 
 // Services
 import { CartDataService, ProductDataService } from "@/services";
-import { ProductDto } from "@/types";
+import { LineItemsDto, ProductDto } from "@/types";
 
 Vue.use(Vuex);
 
@@ -41,6 +41,11 @@ export default new Vuex.Store({
     },
     async getCart({ commit }, id: string) {
       const { data }: any = await CartDataService.get(id);
+      commit("setValue", { key: "cart", value: data.cart });
+      return data;
+    },
+    async addToCart({ commit, state }, payload: LineItemsDto) {
+      const { data }: any = await CartDataService.add(state.cart.id, payload);
       commit("setValue", { key: "cart", value: data.cart });
       return data;
     },

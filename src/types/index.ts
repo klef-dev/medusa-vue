@@ -15,6 +15,7 @@ export interface ProductDto {
   products: any[];
 }
 
-export interface VueStateDto {
-  products?: any;
+export interface LineItemsDto {
+  variant_id: string;
+  quantity: number;
 }
