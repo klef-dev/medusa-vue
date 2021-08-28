@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 // Services
-import { ProductDataService } from "@/services";
+import { CartDataService, ProductDataService } from "@/services";
 import { ProductDto } from "@/types";
 
 Vue.use(Vuex);
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   state: {
     products: {},
     product: {},
+    cart: {},
   },
   mutations: {
     setValue(state: any, { key, value }) {
@@ -32,6 +34,17 @@ export default new Vuex.Store({
       commit("setValue", { key: "product", value: data.product });
       return data;
     },
+    async createCart({ commit }) {
+      const { data }: any = await CartDataService.create();
+      commit("setValue", { key: "cart", value: data.cart });
+      return data;
+    },
+    async getCart({ commit }, id: string) {
+      const { data }: any = await CartDataService.get(id);
+      commit("setValue", { key: "cart", value: data.cart });
+      return data;
+    },
   },
   modules: {},
+  plugins: [createPersistedState()],
 });
