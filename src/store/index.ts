@@ -11,6 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     products: {},
+    product: {},
   },
   mutations: {
     setValue(state: any, { key, value }) {
@@ -24,6 +25,11 @@ export default new Vuex.Store({
         const prod: ProductDto = data;
         commit("setValue", { key: "products", value: prod.products });
       }
+      return data;
+    },
+    async getProduct({ commit }, id: string) {
+      const { data }: any = await ProductDataService.get(id);
+      commit("setValue", { key: "product", value: data.product });
       return data;
     },
   },
