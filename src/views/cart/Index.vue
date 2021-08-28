@@ -222,7 +222,11 @@
             <div class="flex items-center justify-between">
               <dt class="text-sm text-gray-600">Subtotal (incl. taxes)</dt>
               <dd class="text-sm font-medium text-gray-900">
-                {{ cart.region ? cart.subtotal : 0 | currency("$") }}
+                {{
+                  cart.region
+                    ? formatPrice(cart.subtotal, cart.region.currency_code)
+                    : 0
+                }}
               </dd>
             </div>
           </dl>
@@ -263,6 +267,7 @@
 import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import { NetworkErrorDto } from "@/types";
+import { formatPrice } from "@/helpers";
 import Notify from "@/components/Notify.vue";
 export default Vue.extend({
   name: "Cart",
@@ -278,6 +283,8 @@ export default Vue.extend({
       updateQuantity: "updateQuantity",
       removeFromCart: "removeFromCart",
     }),
+    formatPrice: (price: number, currency: string) =>
+      formatPrice(price, currency),
     async handleQuantity(
       type: string,
       { item_id, quantity }: { item_id: string; quantity: number }

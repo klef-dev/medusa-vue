@@ -55,7 +55,7 @@
             <h3>
               {{ product.title }}
             </h3>
-            <p>$210</p>
+            <p>19.50 EUR</p>
           </div>
           <p class="mt-1 text-sm italic text-gray-500">
             {{ product.description }}

@@ -144,7 +144,10 @@
                         <p>
                           Price:
                           <span class="text-gray-500">{{
-                            item.unit_price | currency("$")
+                            formatPrice(
+                              item.unit_price,
+                              cart.region.currency_code
+                            )
                           }}</span>
                         </p>
                       </div>
@@ -201,6 +204,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
 import { mapState } from "vuex";
+import { formatPrice } from "@/helpers";
 export default Vue.extend({
   name: "Navbar",
   data: () => ({
@@ -210,6 +214,10 @@ export default Vue.extend({
     ...mapState({
       cart: (state: any) => state.cart,
     }),
+  },
+  methods: {
+    formatPrice: (price: number, currency: string) =>
+      formatPrice(price, currency),
   },
 });
 </script>

@@ -88,11 +88,6 @@
                 <fieldset class="mt-2">
                   <legend class="sr-only">Choose a size</legend>
                   <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                    <!--
-                    In Stock: "cursor-pointer", Out of Stock: "opacity-25 cursor-not-allowed"
-                    Active: "ring-2 ring-offset-2 ring-indigo-500"
-                    Checked: "bg-indigo-600 border-transparent text-white hover:bg-indigo-700", Not Checked: "bg-white border-gray-200 text-gray-900 hover:bg-gray-50"
-                  -->
                     <div v-for="variant in product.variants" :key="variant.id">
                       <label
                         class="
