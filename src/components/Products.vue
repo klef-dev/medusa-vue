@@ -15,10 +15,10 @@
           xl:gap-x-8
         "
       >
-        <a
+        <router-link
           v-for="product in products"
           :key="product.id"
-          :href="`/products/${product.id}`"
+          :to="`/products/${product.id}`"
           class="group"
         >
           <div
@@ -60,7 +60,7 @@
           <p class="mt-1 text-sm italic text-gray-500">
             {{ product.description }}
           </p>
-        </a>
+        </router-link>
       </div>
     </div>
   </div>

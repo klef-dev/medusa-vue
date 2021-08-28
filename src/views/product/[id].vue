@@ -6,14 +6,14 @@
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <ol role="list" class="flex items-center space-x-4">
-          <li v-for="breadcrumb in product.breadcrumbs" :key="breadcrumb.id">
+          <li>
             <div class="flex items-center">
-              <a
-                :href="breadcrumb.href"
+              <router-link
+                to="/"
                 class="mr-4 text-sm font-medium text-gray-900"
               >
-                {{ breadcrumb.name }}
-              </a>
+                Products
+              </router-link>
               <svg
                 viewBox="0 0 6 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -29,11 +29,11 @@
           </li>
           <li class="text-sm">
             <a
-              :href="product.href"
+              :href="product.id"
               aria-current="page"
               class="font-medium text-gray-500 hover:text-gray-600"
             >
-              {{ product.name }}
+              {{ product.title }}
             </a>
           </li>
         </ol>
@@ -43,11 +43,9 @@
           <div class="lg:col-start-8 lg:col-span-5">
             <div class="flex justify-between">
               <h1 class="text-xl font-medium text-gray-900">
-                {{ product.name }}
+                {{ product.title }}
               </h1>
-              <p class="text-xl font-medium text-gray-900">
-                {{ product.price }}
-              </p>
+              <p class="text-xl font-medium text-gray-900">$210</p>
             </div>
           </div>
 
@@ -84,16 +82,6 @@
               <div class="mt-8">
                 <div class="flex items-center justify-between">
                   <h2 class="text-sm font-medium text-gray-900">Size</h2>
-                  <a
-                    href="#"
-                    class="
-                      text-sm
-                      font-medium
-                      text-indigo-600
-                      hover:text-indigo-500
-                    "
-                    >See sizing chart</a
-                  >
                 </div>
 
                 <fieldset class="mt-2">
@@ -142,6 +130,69 @@
                       </label>
                     </div>
                   </div>
+                  <div class="grid grid-cols-3 gap-3 sm:grid-cols-6 mt-2">
+                    <button
+                      class="
+                        border
+                        rounded-md
+                        py-3
+                        px-3
+                        flex
+                        items-center
+                        justify-center
+                        text-sm
+                        font-medium
+                        uppercase
+                        sm:flex-1
+                        focus:outline-none
+                      "
+                      :class="
+                        this.quantity == 1
+                          ? 'opacity-25 cursor-not-allowed'
+                          : ''
+                      "
+                      @click.prevent="handleQuantity('dec')"
+                    >
+                      -
+                    </button>
+                    <label
+                      class="
+                        border
+                        rounded-md
+                        py-3
+                        px-3
+                        flex
+                        items-center
+                        justify-center
+                        text-sm
+                        font-medium
+                        uppercase
+                        sm:flex-1
+                        focus:outline-none
+                      "
+                    >
+                      <p id="size-choice-0-label">{{ quantity }}</p>
+                    </label>
+                    <button
+                      class="
+                        border
+                        rounded-md
+                        py-3
+                        px-3
+                        flex
+                        items-center
+                        justify-center
+                        text-sm
+                        font-medium
+                        uppercase
+                        sm:flex-1
+                        focus:outline-none
+                      "
+                      @click.prevent="handleQuantity('inc')"
+                    >
+                      +
+                    </button>
+                  </div>
                 </fieldset>
               </div>
 
@@ -168,7 +219,7 @@
                   focus:ring-indigo-500
                 "
               >
-                Add to cart
+                Add to bag
               </button>
             </form>
 
@@ -180,20 +231,6 @@
                 class="mt-4 prose prose-sm text-gray-500"
                 v-html="product.description"
               />
-            </div>
-
-            <div class="mt-8 border-t border-gray-200 pt-8">
-              <h2 class="text-sm font-medium text-gray-900">
-                Fabric &amp; Care
-              </h2>
-
-              <div class="mt-4 prose prose-sm text-gray-500">
-                <ul role="list">
-                  <li v-for="item in product.details" :key="item">
-                    {{ item }}
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
@@ -210,6 +247,8 @@ export default Vue.extend({
   name: "SingleProduct",
   data: () => ({
     selectedSize: null,
+    variant_id: "",
+    quantity: 1,
     loading: false,
   }),
   computed: {
@@ -225,8 +264,25 @@ export default Vue.extend({
       const index = this.product.variants.find((v: any) => v.id == id);
       if (index) {
         index.checked = true;
+        this.variant_id = id;
+        this.quantity = 1;
       }
       this.$forceUpdate();
+    },
+    handleQuantity(type: string) {
+      if (type == "inc") {
+        const variant = this.product.variants.find(
+          (v: any) => v.id == this.variant_id
+        );
+        if (variant && variant.inventory_quantity > this.quantity) {
+          this.quantity += 1;
+        }
+      }
+      if (type == "dec") {
+        if (this.quantity > 1) {
+          this.quantity -= 1;
+        }
+      }
     },
   },
   async created() {
@@ -239,6 +295,7 @@ export default Vue.extend({
     if (data) {
       this.product.variants[0].checked = true;
       this.selectedSize = this.product.variants[0].title;
+      this.variant_id = this.product.variants[0].id;
       this.$forceUpdate();
     }
     this.loading = false;
