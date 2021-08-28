@@ -34,10 +34,10 @@
         <div class="h-16 flex items-center justify-between">
           <!-- Logo -->
           <div class="flex-1 flex">
-            <a href="#">
-              <span class="sr-only">Workflow</span>
+            <router-link to="/">
+              <span class="sr-only">TQ</span>
               <img class="h-10 w-auto" src="../assets/logo.png" alt="" />
-            </a>
+            </router-link>
           </div>
 
           <div class="flex-1 flex items-center justify-end">

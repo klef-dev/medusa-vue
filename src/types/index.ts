@@ -18,4 +18,5 @@ export interface ProductDto {
 export interface LineItemsDto {
   variant_id: string;
   quantity: number;
+  item_id: string;
 }

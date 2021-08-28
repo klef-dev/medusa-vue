@@ -49,6 +49,22 @@ export default new Vuex.Store({
       commit("setValue", { key: "cart", value: data.cart });
       return data;
     },
+    async updateQuantity({ commit, state }, payload: LineItemsDto) {
+      const { data }: any = await CartDataService.updateQuantity(
+        state.cart.id,
+        payload
+      );
+      commit("setValue", { key: "cart", value: data.cart });
+      return data;
+    },
+    async removeFromCart({ commit, state }, item_id: string) {
+      const { data }: any = await CartDataService.removeFromCart(
+        state.cart.id,
+        item_id
+      );
+      commit("setValue", { key: "cart", value: data.cart });
+      return data;
+    },
   },
   modules: {},
   plugins: [createPersistedState()],

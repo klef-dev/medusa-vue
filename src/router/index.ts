@@ -22,6 +22,12 @@ const routes: Array<RouteConfig> = [
         /* webpackChunkName: "single-product" */ "../views/product/[id].vue"
       ),
   },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: () =>
+      import(/* webpackChunkName: "cart" */ "../views/cart/Index.vue"),
+  },
 ];
 
 const router = new VueRouter({
