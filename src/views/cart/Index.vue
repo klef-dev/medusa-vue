@@ -63,22 +63,15 @@
                     </div>
                     <div class="mt-1 flex text-sm">
                       <p class="text-gray-500">{{ item.description }}</p>
-
-                      <p
-                        class="ml-4 pl-4 border-l border-gray-200 text-gray-500"
-                      >
-                        {{ item.variant.title }}
-                      </p>
                     </div>
                     <p class="mt-1 text-sm font-medium text-gray-900">
-                      {{ item.unit_price | currency("$") }}
+                      {{
+                        formatPrice(item.unit_price, cart.region.currency_code)
+                      }}
                     </p>
                   </div>
 
                   <div class="mt-4 sm:mt-0 sm:pr-9">
-                    <label for="quantity-0" class="sr-only"
-                      >Quantity, Basic Tee</label
-                    >
                     <div class="grid grid-cols-3 gap-3 sm:grid-cols-6 mt-2">
                       <button
                         class="
