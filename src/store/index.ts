@@ -4,6 +4,7 @@ import Vuex from "vuex";
 
 // Services
 import { ProductDataService } from "@/services";
+import { ProductDto } from "@/types";
 
 Vue.use(Vuex);
 
@@ -19,7 +20,10 @@ export default new Vuex.Store({
   actions: {
     async getProducts({ commit }) {
       const { data } = await ProductDataService.index();
-      commit("setValue", { key: "products", value: data });
+      if (data) {
+        const prod: ProductDto = data;
+        commit("setValue", { key: "products", value: prod.products });
+      }
       return data;
     },
   },

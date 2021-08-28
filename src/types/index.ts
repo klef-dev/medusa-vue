@@ -14,3 +14,7 @@ export interface ProductDto {
   count: number;
   products: any[];
 }
+
+export interface VueStateDto {
+  products?: any;
+}

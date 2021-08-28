@@ -1,29 +1,35 @@
 <template>
   <div class="home">
-    <h1>Hello world</h1>
+    <p v-if="loading">Loading...</p>
+    <products :products="products" v-if="!loading && products" />
   </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
-import { mapActions } from "vuex";
-import { ProductDto, NetworkErrorDto } from "@/types";
+import { mapActions, mapState } from "vuex";
+import { NetworkErrorDto } from "@/types";
+import Products from "@/components/Products.vue";
 
 export default Vue.extend({
   name: "Home",
-  components: {},
+  components: { Products },
+  data: () => ({
+    loading: false,
+  }),
+  computed: {
+    ...mapState({ products: (state: any) => state.products }),
+  },
   methods: {
     ...mapActions({ getProducts: "getProducts" }),
   },
   async created() {
-    const data: ProductDto = await this.getProducts().catch(
-      (err: NetworkErrorDto) => {
-        console.log(err.response);
-      }
-    );
-    if (data) {
-      console.log(data.products);
-    }
+    this.loading = true;
+    await this.getProducts().catch((err: NetworkErrorDto) => {
+      console.log(err.response);
+    });
+    this.loading = false;
   },
 });
 </script>
