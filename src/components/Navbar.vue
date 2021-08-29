@@ -154,6 +154,12 @@
                       focus:ring-offset-gray-50
                       focus:ring-indigo-500
                     "
+                    :class="
+                      cart.items.length < 1
+                        ? 'opacity-25 cursor-not-allowed'
+                        : ''
+                    "
+                    :disabled="cart.items.length < 1 ? true : false"
                   >
                     Checkout
                   </button>
