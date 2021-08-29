@@ -63,14 +63,10 @@
               class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8"
             >
               <img
-                v-for="image in product.images"
-                :key="image.id"
-                :src="image.imageSrc"
-                :alt="image.imageAlt"
+                src="https://cdn.shopify.com/s/files/1/0192/1043/6708/products/ada-sofas-29038459486368.jpg?v=1622554534"
+                alt="product image"
                 :class="[
-                  image.primary
-                    ? 'lg:col-span-2 lg:row-span-2'
-                    : 'hidden lg:block',
+                  true ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
                   'rounded-lg',
                 ]"
               />

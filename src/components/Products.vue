@@ -31,7 +31,7 @@
             "
           >
             <img
-              src="https://i.etsystatic.com/15221014/c/2000/1589/0/1282/il/6f53b9/2901337420/il_340x270.2901337420_jvun.jpg"
+              src="https://cdn.shopify.com/s/files/1/0192/1043/6708/products/ada-sofas-29038459486368.jpg?v=1622554534"
               :alt="product.title"
               class="
                 w-full
@@ -55,7 +55,7 @@
             <h3>
               {{ product.title }}
             </h3>
-            <p>19.50 EUR</p>
+            <p>149,999.00 NGN</p>
           </div>
           <p class="mt-1 text-sm italic text-gray-500">
             {{ product.description }}

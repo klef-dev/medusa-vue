@@ -98,7 +98,7 @@
                       :key="item.id"
                     >
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
+                        src="https://cdn.shopify.com/s/files/1/0192/1043/6708/products/ada-sofas-29038459486368.jpg?v=1622554534"
                         alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
                         class="
                           flex-none

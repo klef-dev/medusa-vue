@@ -30,7 +30,7 @@
             >
               <div class="flex-shrink-0">
                 <img
-                  src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg"
+                  src="https://cdn.shopify.com/s/files/1/0192/1043/6708/products/ada-sofas-29038459486368.jpg?v=1622554534"
                   alt="Front of men&#039;s Basic Tee in sienna."
                   class="
                     w-24
