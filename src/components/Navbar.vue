@@ -1,25 +1,4 @@
 <template>
-  <!--
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  const colors = require('tailwindcss/colors')
-  
-  module.exports = {
-    // ...
-    theme: {
-      extend: {
-        colors: {
-          orange: colors.orange,
-        },
-      },
-    },
-  }
-  ```
--->
   <header class="relative bg-white">
     <nav aria-label="Top" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div
@@ -79,6 +58,7 @@
                     text-gray-700
                     group-hover:text-gray-800
                   "
+                  v-if="Object.keys(cart).length"
                   >{{
                     cart.items.reduce((total, obj) => obj.quantity + total, 0)
                   }}</span
