@@ -46,7 +46,7 @@
               <h1 class="text-xl font-medium text-gray-900">
                 {{ product.title }}
               </h1>
-              <p class="text-xl font-medium text-gray-900">$210</p>
+              <p class="text-xl font-medium text-gray-900">149,999.00 NGN</p>
             </div>
           </div>
 
